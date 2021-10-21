@@ -110,10 +110,23 @@ const App = () => {
     setSquareBeingDragged(e.target);
   };
 
-  const dragEnd = (e) => {};
-
   const dragDrop = (e) => {
     setSquareBeingReplaced(e.target);
+  };
+
+  const dragEnd = (e) => {
+    const squareBeingDraggedId = parseInt(
+      squareBeingDragged.getAttribute("data-id")
+    );
+    const squareBeingReplacedId = parseInt(
+      squareBeingReplaced.getAttribute("data-id")
+    );
+
+    currentColorArrangement[squareBeingReplacedId] =
+      squareBeingDragged.style.backgroundColor;
+
+    currentColorArrangement[squareBeingDraggedId] =
+      squareBeingReplaced.style.backgroundColor;
   };
 
   const createBoard = () => {
@@ -160,8 +173,8 @@ const App = () => {
             data-id={index}
             draggable={true}
             onDragStart={dragStart}
-            onDragEnd={dragEnd}
             onDrop={dragDrop}
+            onDragEnd={dragEnd}
             onDragOver={(e) => e.preventDefault()}
             onDragEnter={(e) => e.preventDefault()}
             onDragLeave={(e) => e.preventDefault()}
