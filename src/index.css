@@ -3,6 +3,11 @@
   padding: 30px;
 }
 
+h2,
+p {
+  padding: 5px;
+}
+
 .game {
   width: 560px;
   height: 560px;

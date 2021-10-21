@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import ScoreBoard from "./components/ScoreBoard";
 
 const width = 8;
 const candyColors = ["blue", "green", "orange", "purple", "red", "yellow"];
@@ -7,6 +8,7 @@ const App = () => {
   const [currentColorArrangement, setCurrentColorArrangement] = useState([]);
   const [squareBeingDragged, setSquareBeingDragged] = useState(null);
   const [squareBeingReplaced, setSquareBeingReplaced] = useState(null);
+  const [scoreDisplay, setScoreDisplay] = useState(0);
 
   // The order of row checks matters, always check for 4 columns before 3
   // Or the four column check will be neglected
@@ -20,6 +22,7 @@ const App = () => {
           (square) => currentColorArrangement[square] === decidedColor
         )
       ) {
+        setScoreDisplay((score) => score + 4);
         columnOfFour.forEach(
           (square) => (currentColorArrangement[square] = "")
         );
@@ -38,6 +41,7 @@ const App = () => {
           (square) => currentColorArrangement[square] === decidedColor
         )
       ) {
+        setScoreDisplay((score) => score + 3);
         columnOfThree.forEach(
           (square) => (currentColorArrangement[square] = "")
         );
@@ -63,6 +67,7 @@ const App = () => {
           (square) => currentColorArrangement[square] === decidedColor
         )
       ) {
+        setScoreDisplay((score) => score + 4);
         rowOfFour.forEach((square) => (currentColorArrangement[square] = ""));
         return true;
       }
@@ -85,6 +90,7 @@ const App = () => {
           (square) => currentColorArrangement[square] === decidedColor
         )
       ) {
+        setScoreDisplay((score) => score + 3);
         rowOfThree.forEach((square) => (currentColorArrangement[square] = ""));
         return true;
       }
@@ -214,6 +220,8 @@ const App = () => {
           />
         ))}
       </div>
+      <ScoreBoard score={scoreDisplay} />
+      <p>Move identical blocks to form rows and columns of 3 or 4</p>
     </div>
   );
 };
