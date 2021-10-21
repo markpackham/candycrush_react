@@ -6,6 +6,8 @@ const candyColors = ["blue", "green", "orange", "purple", "red", "yellow"];
 const App = () => {
   const [currentColorArrangement, setCurrentColorArrangement] = useState([]);
 
+  // The order of row checks matters, always check for 4 columns before 3
+  // Or the four column check will be neglected
   const checkForColumnOfFour = () => {
     for (let i = 0; i < 39; i++) {
       const columnOfFour = [i, i + width, i + width * 2, i + width * 3];
@@ -36,6 +38,28 @@ const App = () => {
         columnOfThree.forEach(
           (square) => (currentColorArrangement[square] = "")
         );
+      }
+    }
+  };
+
+  const checkForRowsOfFour = () => {
+    for (let i = 0; i < 64; i++) {
+      const rowOfFour = [i, i + 1, i + 2, i + 3];
+      const decidedColor = currentColorArrangement[i];
+      const notValid = [
+        5, 6, 7, 13, 14, 15, 21, 22, 23, 29, 30, 31, 37, 38, 39, 45, 46, 47, 53,
+        54, 55, 62, 63, 64,
+      ];
+
+      // Don't waste time checking rows that are the last two on the right side
+      if (notValid.includes(i)) continue;
+
+      if (
+        rowOfFour.every(
+          (square) => currentColorArrangement[square] === decidedColor
+        )
+      ) {
+        rowOfFour.forEach((square) => (currentColorArrangement[square] = ""));
       }
     }
   };
@@ -79,6 +103,7 @@ const App = () => {
     const timer = setInterval(() => {
       checkForColumnOfFour();
       checkForColumnOfThree();
+      checkForRowsOfFour();
       checkForRowsOfThree();
       setCurrentColorArrangement([...currentColorArrangement]);
     }, 100);
@@ -86,6 +111,7 @@ const App = () => {
   }, [
     checkForColumnOfFour,
     checkForColumnOfThree,
+    checkForRowsOfFour,
     checkForRowsOfThree,
     currentColorArrangement,
   ]);
