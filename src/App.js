@@ -9,7 +9,7 @@ const App = () => {
   // The order of row checks matters, always check for 4 columns before 3
   // Or the four column check will be neglected
   const checkForColumnOfFour = () => {
-    for (let i = 0; i < 39; i++) {
+    for (let i = 0; i <= 39; i++) {
       const columnOfFour = [i, i + width, i + width * 2, i + width * 3];
       const decidedColor = currentColorArrangement[i];
 
@@ -26,7 +26,7 @@ const App = () => {
   };
 
   const checkForColumnOfThree = () => {
-    for (let i = 0; i < 47; i++) {
+    for (let i = 0; i <= 47; i++) {
       const columnOfThree = [i, i + width, i + width * 2];
       const decidedColor = currentColorArrangement[i];
 
@@ -88,7 +88,7 @@ const App = () => {
   // falling & vanishing effect like in Tetris
   // we need to make sure the entire first row isn't emptied
   const moveIntoSquareBelow = () => {
-    for (let i = 0; i < 64 - width; i++) {
+    for (let i = 0; i <= 55 - width; i++) {
       const firstRow = [0, 1, 2, 3, 4, 5, 6, 7];
       const isFirstRow = firstRow.includes(i);
 
@@ -103,6 +103,12 @@ const App = () => {
       }
     }
   };
+
+  const dragStart = (e) => {};
+
+  const dragEnd = (e) => {};
+
+  const dragDrop = (e) => {};
 
   const createBoard = () => {
     const randomColorArrangement = [];
@@ -145,6 +151,14 @@ const App = () => {
             alt={candyColor}
             key={index}
             style={{ backgroundColor: candyColor }}
+            data-id={index}
+            draggable={true}
+            onDragStart={dragStart}
+            onDragEnd={dragEnd}
+            onDrop={dragDrop}
+            onDragOver={(e) => e.preventDefault()}
+            onDragEnter={(e) => e.preventDefault()}
+            onDragLeave={(e) => e.preventDefault()}
           />
         ))}
       </div>
