@@ -16,10 +16,11 @@ const App = () => {
     for (let i = 0; i <= 39; i++) {
       const columnOfFour = [i, i + width, i + width * 2, i + width * 3];
       const decidedColor = currentColorArrangement[i];
-
+      const isBlank = currentColorArrangement[i] === "";
       if (
         columnOfFour.every(
-          (square) => currentColorArrangement[square] === decidedColor
+          (square) =>
+            currentColorArrangement[square] === decidedColor && !isBlank
         )
       ) {
         setScoreDisplay((score) => score + 4);
@@ -35,10 +36,11 @@ const App = () => {
     for (let i = 0; i <= 47; i++) {
       const columnOfThree = [i, i + width, i + width * 2];
       const decidedColor = currentColorArrangement[i];
-
+      const isBlank = currentColorArrangement[i] === "";
       if (
         columnOfThree.every(
-          (square) => currentColorArrangement[square] === decidedColor
+          (square) =>
+            currentColorArrangement[square] === decidedColor && !isBlank
         )
       ) {
         setScoreDisplay((score) => score + 3);
@@ -58,13 +60,14 @@ const App = () => {
         5, 6, 7, 13, 14, 15, 21, 22, 23, 29, 30, 31, 37, 38, 39, 45, 46, 47, 53,
         54, 55, 62, 63, 64,
       ];
-
+      const isBlank = currentColorArrangement[i] === "";
       // Don't waste time checking rows that are the last two on the right side
       if (notValid.includes(i)) continue;
 
       if (
         rowOfFour.every(
-          (square) => currentColorArrangement[square] === decidedColor
+          (square) =>
+            currentColorArrangement[square] === decidedColor && !isBlank
         )
       ) {
         setScoreDisplay((score) => score + 4);
@@ -81,13 +84,14 @@ const App = () => {
       const notValid = [
         6, 7, 14, 15, 22, 23, 30, 31, 38, 39, 46, 47, 54, 55, 63, 64,
       ];
-
+      const isBlank = currentColorArrangement[i] === "";
       // Don't waste time checking rows that are the last two on the right side
       if (notValid.includes(i)) continue;
 
       if (
         rowOfThree.every(
-          (square) => currentColorArrangement[square] === decidedColor
+          (square) =>
+            currentColorArrangement[square] === decidedColor && !isBlank
         )
       ) {
         setScoreDisplay((score) => score + 3);
