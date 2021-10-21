@@ -85,6 +85,16 @@ const App = () => {
     }
   };
 
+  // falling & vanishing effect like in Tetris
+  const moveIntoSquareBelow = () => {
+    for (let i = 0; i < 64 - width; i++) {
+      if (currentColorArrangement[i + width] === "") {
+        currentColorArrangement[i + width] = currentColorArrangement[i];
+        currentColorArrangement[i] = "";
+      }
+    }
+  };
+
   const createBoard = () => {
     const randomColorArrangement = [];
     for (let i = 0; i < width * width; i++) {
@@ -105,6 +115,7 @@ const App = () => {
       checkForColumnOfThree();
       checkForRowsOfFour();
       checkForRowsOfThree();
+      moveIntoSquareBelow();
       setCurrentColorArrangement([...currentColorArrangement]);
     }, 100);
     return () => clearInterval(timer);
@@ -113,6 +124,7 @@ const App = () => {
     checkForColumnOfThree,
     checkForRowsOfFour,
     checkForRowsOfThree,
+    moveIntoSquareBelow,
     currentColorArrangement,
   ]);
 
