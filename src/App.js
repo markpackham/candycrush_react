@@ -145,6 +145,21 @@ const App = () => {
     const isAColumnOfThree = checkForColumnOfThree();
     const isARowOfFour = checkForRowsOfFour();
     const isARowOfThree = checkForRowsOfThree();
+
+    if (
+      squareBeingReplacedId &&
+      validMove &&
+      (isARowOfThree || isARowOfFour || isAColumnOfFour || isAColumnOfThree)
+    ) {
+      setSquareBeingDragged(null);
+      setSquareBeingReplaced(null);
+    } else {
+      currentColorArrangement[squareBeingReplacedId] =
+        squareBeingReplaced.style.backgroundColor;
+      currentColorArrangement[squareBeingDraggedId] =
+        squareBeingDragged.style.backgroundColor;
+      setCurrentColorArrangement([...currentColorArrangement]);
+    }
   };
 
   const createBoard = () => {
