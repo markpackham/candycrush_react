@@ -5,6 +5,8 @@ const candyColors = ["blue", "green", "orange", "purple", "red", "yellow"];
 
 const App = () => {
   const [currentColorArrangement, setCurrentColorArrangement] = useState([]);
+  const [squareBeingDragged, setSquareBeingDragged] = useState(null);
+  const [squareBeingReplaced, setSquareBeingReplaced] = useState(null);
 
   // The order of row checks matters, always check for 4 columns before 3
   // Or the four column check will be neglected
@@ -104,11 +106,15 @@ const App = () => {
     }
   };
 
-  const dragStart = (e) => {};
+  const dragStart = (e) => {
+    setSquareBeingDragged(e.target);
+  };
 
   const dragEnd = (e) => {};
 
-  const dragDrop = (e) => {};
+  const dragDrop = (e) => {
+    setSquareBeingReplaced(e.target);
+  };
 
   const createBoard = () => {
     const randomColorArrangement = [];
